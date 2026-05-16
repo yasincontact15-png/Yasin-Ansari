@@ -1,0 +1,7 @@
+{
+  "name": "Yasin Assistant - Creative Director AI",
+  "description": "The ultimate AI strategist and creative director for filmmakers, entrepreneurs, and digital innovators. Built for Yasin Ansari and his global community.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
