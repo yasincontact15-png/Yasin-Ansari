@@ -36,7 +36,8 @@ export class LiveSessionManager {
 
   constructor() {
     this.ai = new GoogleGenAI({ 
-      apiKey: process.env.API_KEY || process.env.GEMINI_API_KEY
+      apiKey: process.env.API_KEY || process.env.GEMINI_API_KEY,
+      apiVersion: "v1alpha"
     });
   }
 
@@ -52,14 +53,24 @@ export class LiveSessionManager {
       this.nextPlayTime = this.playbackContext.currentTime;
 
       // Get Microphone
-      this.mediaStream = await navigator.mediaDevices.getUserMedia({ 
-        audio: {
-          channelCount: 1,
-          sampleRate: 16000,
-          echoCancellation: true,
-          noiseSuppression: true,
-        } 
-      });
+      try {
+        this.mediaStream = await navigator.mediaDevices.getUserMedia({ 
+          audio: {
+            channelCount: 1,
+            sampleRate: 16000,
+            echoCancellation: true,
+            noiseSuppression: true,
+          } 
+        });
+      } catch (err: any) {
+        if (err.name === 'NotAllowedError' || err.name === "PermissionDeniedError") {
+          throw new Error("Microphone access was denied. Please check your browser's site settings and click the lock icon next to the URL to allow it.");
+        } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+          throw new Error("No microphone found. Please connect an input device and try again.");
+        } else {
+          throw new Error(`Microphone error: ${err.message || 'Unknown error'}`);
+        }
+      }
 
       this.source = this.audioContext.createMediaStreamSource(this.mediaStream);
       this.processor = this.audioContext.createScriptProcessor(2048, 1, 1);
@@ -218,6 +229,7 @@ export class LiveSessionManager {
     } catch (error) {
       console.error("Failed to start Live Session:", error);
       this.stop();
+      throw error;
     }
   }
 

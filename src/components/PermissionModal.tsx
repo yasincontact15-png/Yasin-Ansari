@@ -28,8 +28,9 @@ export default function PermissionModal({ onClose }: Props) {
         <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-left w-full mb-8">
           <p className="text-sm text-white/80 font-medium mb-2">How to fix this:</p>
           <ol className="text-xs text-white/60 list-decimal pl-4 space-y-2">
-            <li>Click the <strong>lock icon (🔒)</strong> or <strong>tune icon (⚙️)</strong> next to the URL bar at the top of your browser.</li>
+            <li>Click the <strong>lock icon (🔒)</strong> next to the URL bar at the top of your browser.</li>
             <li>Find <strong>Microphone</strong> and change it to <strong>Allow</strong>.</li>
+            <li><strong>Pro Tip:</strong> If you're using AI Studio, try opening the app in a <strong>new tab</strong> for more reliable microphone access.</li>
             <li>Refresh this page.</li>
           </ol>
         </div>
