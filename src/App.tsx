@@ -187,6 +187,10 @@ export default function App() {
       {showPermissionModal && (
         <PermissionModal 
           onClose={() => setShowPermissionModal(false)} 
+          onUseTextMode={() => {
+            setShowPermissionModal(false);
+            setShowTextInput(true);
+          }}
         />
       )}
 

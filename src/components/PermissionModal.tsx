@@ -4,9 +4,10 @@ import { MicOff } from 'lucide-react';
 
 interface Props {
   onClose: () => void;
+  onUseTextMode?: () => void;
 }
 
-export default function PermissionModal({ onClose }: Props) {
+export default function PermissionModal({ onClose, onUseTextMode }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4">
       <motion.div 
@@ -38,13 +39,21 @@ export default function PermissionModal({ onClose }: Props) {
         <div className="flex flex-col w-full gap-3">
           <button 
             onClick={() => window.location.reload()}
-            className="w-full py-3 px-4 bg-white text-black font-medium rounded-xl hover:bg-gray-200 transition-colors"
+            className="w-full py-3 px-4 bg-white text-black font-medium rounded-xl hover:bg-gray-200 transition-colors cursor-pointer"
           >
             I've allowed it, Refresh Page
           </button>
+          {onUseTextMode && (
+            <button 
+              onClick={onUseTextMode}
+              className="w-full py-3 px-4 bg-blue-600 font-medium text-white rounded-xl hover:bg-blue-500 transition-colors cursor-pointer"
+            >
+              Switch to Text-Only Chat
+            </button>
+          )}
           <button 
             onClick={onClose}
-            className="w-full py-3 px-4 bg-white/5 text-white/70 font-medium rounded-xl hover:bg-white/10 transition-colors"
+            className="w-full py-3 px-4 bg-white/5 text-white/70 font-medium rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
           >
             Close
           </button>
